@@ -1,0 +1,665 @@
+{
+    "2023-12-26": [
+        {
+            "id": "appointment-1703628261538",
+            "name": "Aline Callegari",
+            "time": "18:00",
+            "notes": "A Pagar",
+            "value": "60.00"
+        },
+        {
+            "id": "appointment-1703628280233",
+            "name": "Natiele Santos",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-05": [
+        {
+            "id": "appointment-1703643715022",
+            "name": "Aline Callegari",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690478266",
+            "name": "Lucili",
+            "time": "19:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-19": [
+        {
+            "id": "appointment-1703643753260",
+            "name": "Aline Callegari",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690502390",
+            "name": "Lucili",
+            "time": "19:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690922663",
+            "name": "Daniel",
+            "time": "21:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": false
+        }
+    ],
+    "2023-12-12": [
+        {
+            "id": "appointment-1703645698374",
+            "name": "Natiele Santos",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-27": [
+        {
+            "id": "appointment-1703683187530",
+            "name": "Giulia Bernardes",
+            "time": "10:30",
+            "notes": "Sessão uníca",
+            "value": "70.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703691027662",
+            "name": "Bianca Galache",
+            "time": "20:30",
+            "notes": "",
+            "value": "70.00",
+            "paid": false
+        }
+    ],
+    "2023-12-08": [
+        {
+            "id": "appointment-1703689438439",
+            "name": "Drª Roberta",
+            "time": "20:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703690327444",
+            "name": "Néia",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690404529",
+            "name": "Catarina Leão",
+            "time": "14:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690780798",
+            "name": "Vitoria Hadassa",
+            "time": "15:00",
+            "notes": "",
+            "value": "25.00",
+            "paid": false
+        }
+    ],
+    "2023-12-16": [
+        {
+            "id": "appointment-1703689476846",
+            "name": "Drª Roberta",
+            "time": "09:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703690869631",
+            "name": "Gabriel da Barbara",
+            "time": "10:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-23": [
+        {
+            "id": "appointment-1703689522058",
+            "name": "Rodrigo Ladislau",
+            "time": "19:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703690886331",
+            "name": "Gabriel da Barbara",
+            "time": "10:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-14": [
+        {
+            "id": "appointment-1703689561680",
+            "name": "Sophia",
+            "time": "18:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703690812335",
+            "name": "Vitoria Hadassa",
+            "time": "19:30",
+            "notes": "",
+            "value": "25.00",
+            "paid": false
+        }
+    ],
+    "2023-12-21": [
+        {
+            "id": "appointment-1703689589140",
+            "name": "Sophia",
+            "time": "18:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703689657934",
+            "name": "João Victor Novacosque",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-07": [
+        {
+            "id": "appointment-1703689632668",
+            "name": "João Victor Novacosque",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690744696",
+            "name": "Gabriel da Vitoria",
+            "time": "19:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-09": [
+        {
+            "id": "appointment-1703689896874",
+            "name": "Matheus",
+            "time": "14:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690851265",
+            "name": "Gabriel da Barbara",
+            "time": "10:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-13": [
+        {
+            "id": "appointment-1703690168050",
+            "name": "Bianca Galache",
+            "time": "20:30",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703690645859",
+            "name": "Luciana Santos Vieira",
+            "time": "20:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-18": [
+        {
+            "id": "appointment-1703690210057",
+            "name": "Bianca Galache",
+            "time": "21:30",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703690680300",
+            "name": "Luciana Santos Vieira",
+            "time": "20:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-01": [
+        {
+            "id": "appointment-1703690306179",
+            "name": "Néia",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690377123",
+            "name": "Catarina Leão",
+            "time": "14:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703690438503",
+            "name": "Anne Caroline",
+            "time": "13:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-12-06": [
+        {
+            "id": "appointment-1703690605657",
+            "name": "Luciana Santos Vieira",
+            "time": "20:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        }
+    ],
+    "2023-11-17": [
+        {
+            "id": "appointment-1703703629346",
+            "name": "Raphaela",
+            "time": "16:00",
+            "notes": "",
+            "value": "50.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703703834279",
+            "name": "Gabriella Coutinho",
+            "time": "17:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704075142",
+            "name": "Gabriel da Vitoria",
+            "time": "10:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704221052",
+            "name": "Vitoria Hadassa",
+            "time": "15:00",
+            "notes": "",
+            "value": "25.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704289056",
+            "name": "Anne Caroline",
+            "time": "13:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704423504",
+            "name": "Catarina Leão",
+            "time": "17:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703705031370",
+            "name": "Gabriel Irmão da Patricia",
+            "time": "21:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703705096937",
+            "name": "Néia",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-08": [
+        {
+            "id": "appointment-1703703665636",
+            "name": "Daniel",
+            "time": "11:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        }
+    ],
+    "2023-11-14": [
+        {
+            "id": "appointment-1703703688675",
+            "name": "Daniel",
+            "time": "11:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704503890",
+            "name": "Aline Callegari",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704841200",
+            "name": "Natiele Santos",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704995177",
+            "name": "Lucili",
+            "time": "19:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-28": [
+        {
+            "id": "appointment-1703703720473",
+            "name": "Daniel",
+            "time": "00:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704642645",
+            "name": "Ludmila",
+            "time": "22:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703704899405",
+            "name": "Natiele Santos",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-11": [
+        {
+            "id": "appointment-1703703810996",
+            "name": "Gabriella Coutinho",
+            "time": "17:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704356431",
+            "name": "Drª Roberta",
+            "time": "08:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        }
+    ],
+    "2023-11-29": [
+        {
+            "id": "appointment-1703703871800",
+            "name": "Gabriella Coutinho",
+            "time": "20:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-21": [
+        {
+            "id": "appointment-1703703910832",
+            "name": "Matheus",
+            "time": "00:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704624670",
+            "name": "Ludmila",
+            "time": "22:30",
+            "notes": "",
+            "value": "60.00",
+            "paid": false
+        },
+        {
+            "id": "appointment-1703704872873",
+            "name": "Natiele Santos",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-25": [
+        {
+            "id": "appointment-1703703930970",
+            "name": "Matheus",
+            "time": "00:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704106538",
+            "name": "Gabriel da Vitoria",
+            "time": "10:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-23": [
+        {
+            "id": "appointment-1703704002681",
+            "name": "Gabriel da Vitoria",
+            "time": "21:00",
+            "notes": "",
+            "value": "60",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704529657",
+            "name": "Aline Callegari",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704715438",
+            "name": "João Victor Novacosque",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-03": [
+        {
+            "id": "appointment-1703704175421",
+            "name": "Vitoria Hadassa",
+            "time": "15:00",
+            "notes": "",
+            "value": "25.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704260559",
+            "name": "Anne Caroline",
+            "time": "13:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-09": [
+        {
+            "id": "appointment-1703704201688",
+            "name": "Vitoria Hadassa",
+            "time": "15:00",
+            "notes": "",
+            "value": "25.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704310769",
+            "name": "Anne Caroline",
+            "time": "13:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704695488",
+            "name": "João Victor Novacosque",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703705070940",
+            "name": "Néia",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-24": [
+        {
+            "id": "appointment-1703704378590",
+            "name": "Drª Roberta",
+            "time": "08:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704463443",
+            "name": "Catarina Leão",
+            "time": "17:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703705123766",
+            "name": "Néia",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-30": [
+        {
+            "id": "appointment-1703704564839",
+            "name": "Aline Callegari",
+            "time": "18:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        },
+        {
+            "id": "appointment-1703704740271",
+            "name": "João Victor Novacosque",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-11-07": [
+        {
+            "id": "appointment-1703704817783",
+            "name": "Natiele Santos",
+            "time": "21:00",
+            "notes": "",
+            "value": "60.00",
+            "paid": true
+        }
+    ],
+    "2023-12-28": [
+        {
+            "id": "appointment-1703715128126",
+            "name": "Tatiane Ramos",
+            "time": "11:00",
+            "notes": "",
+            "value": "70.00",
+            "paid": true
+        }
+    ],
+    "2024-01-08": [
+        {
+            "id": "appointment-1703722754112",
+            "name": "Isabelly Brigido",
+            "time": "21:30",
+            "notes": "",
+            "value": "70.00",
+            "paid": false
+        }
+    ]
+}

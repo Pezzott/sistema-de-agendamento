@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento Clínica Psicanalítica Pezzott</title>
+    <link rel="icon"
+        href="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/img/Logo.ico"
+        type="image/x-icon">
+    <style>
+        /* Estilos Gerais */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #b2d6c4, #76b9a5);
+            /* Gradiente de verde suave */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header-fixed {
+            background-color: rgba(87, 165, 141, 0.85);
+            color: white;
+            width: 100%;
+            height: 80px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 0 20px;
+        }
+
+        .header-logo {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            position: absolute;
+            left: 20px;
+            top: 10px;
+        }
+
+        .header-title {
+            font-size: 1.5em;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0;
+            top: 20px;
+        }
+
+        /* Barra de Navegação */
+        .header-nav {
+            position: absolute;
+            right: 20px;
+            /* Posiciona no lado direito */
+            top: 10px;
+            /* Ajusta o alinhamento vertical */
+        }
+
+        .header-nav a {
+            color: white;
+            /* Cor do texto */
+            text-decoration: none;
+            /* Remove sublinhado do link */
+            font-size: 0.9em;
+            /* Tamanho do texto */
+            padding: 30px;
+            /* Espaçamento */
+            border-radius: 5px;
+            /* Bordas arredondadas */
+            transition: background-color 0.3s;
+            /* Transição suave para hover */
+        }
+
+        .header-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Efeito ao passar o mouse */
+        }
+
+        .header-title {
+            font-size: 1.5em;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0;
+            top: 20px;
+        }
+
+        .content {
+            padding-top: 100px;
+            margin: 0 20px;
+            max-width: 800px;
+        }
+
+        /* Estilos para Filtros */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin-top: 110px;
+            /* Espaço no topo */
+            margin-left: auto;
+            /* Centraliza horizontalmente */
+            margin-right: auto;
+            /* Centraliza horizontalmente */
+            max-width: 95%;
+            /* Define uma largura máxima para os filtros */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .filters input,
+        .filters button {
+            padding: 8px;
+            border: 1px solid #76b9a5;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .filters button {
+            background-color: #87A596;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .filters button:hover {
+            background-color: #76b9a5;
+        }
+
+        /* Estilos para a Lista de Sessões */
+        #sessionsList {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            /* Espaço entre os filtros e a lista */
+            margin-left: auto;
+            /* Centraliza horizontalmente */
+            margin-right: auto;
+            /* Centraliza horizontalmente */
+            max-width: 95%;
+            /* Define uma largura máxima para a lista */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #sessionsList div {
+            border-bottom: 1px solid #b2d6c4;
+            padding: 10px;
+        }
+
+        #sessionsList div:last-child {
+            border-bottom: none;
+        }
+
+        /* Estilos para os Totais */
+        #totals {
+            margin-top: 20px;
+            /* Espaço entre a lista e os totais */
+            margin-left: auto;
+            /* Centraliza horizontalmente */
+            margin-right: auto;
+            /* Centraliza horizontalmente */
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Fundo semi-transparente para os totais */
+            max-width: 95%;
+            /* Define uma largura máxima para os totais */
+            border-radius: 8px;
+            /* Bordas arredondadas */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Sombra para dar destaque */
+        }
+
+        #totals div {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* Estilos para sessões não pagas */
+        .not-paid {
+            background-color: #f8d7da;
+            /* Vermelho claro para indicar que não foi paga */
+            /* Adicione outros estilos conforme necessário */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-fixed">
+        <img src="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/img/Logo.jpg"
+            alt="Logo da Clínica" class="header-logo">
+        <h1 class="header-title">Historico de Sessões</h1>
+        <nav class="header-nav">
+            <a
+                href="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/templates/index.html">HOME</a>
+        </nav>
+    </div>
+
+    <div class="filters">
+        <input type="text" id="filterName" placeholder="Filtrar por nome">
+        <input type="month" id="filterMonth">
+        <!-- Adicione o seletor para o status de pagamento -->
+        <select id="filterPaymentStatus">
+            <option value="all">Todos</option>
+            <option value="paid">Pagos</option>
+            <option value="notPaid">Não Pagos</option>
+        </select>
+        <button onclick="applyFilters()">Filtrar</button>
+    </div>
+
+    <div id="sessionsList">
+        <!-- Lista de sessões será gerada aqui -->
+    </div>
+    <div id="totals">
+        <!-- Totais serão exibidos aqui -->
+    </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSessions();
+        });
+
+        function loadSessions() {
+            const appointments = JSON.parse(localStorage.getItem('appointments')) || {};
+            let sessions = [];
+
+            for (const date in appointments) {
+                appointments[date].forEach(appointment => {
+                    sessions.push({
+                        date,
+                        name: appointment.name,
+                        time: appointment.time,
+                        value: appointment.value,
+                        paid: appointment.paid
+                    });
+                });
+            }
+
+            displaySessions(sessions);
+            calculateTotals(sessions, 'all'); // Inicialmente calcula totais para todos os agendamentos
+        }
+
+        function displaySessions(sessions) {
+            const sessionsList = document.getElementById('sessionsList');
+            sessionsList.innerHTML = '';
+
+            sessions.forEach(session => {
+                const sessionDiv = document.createElement('div');
+                sessionDiv.classList.add('appointment');
+                if (!session.paid) {
+                    sessionDiv.classList.add('not-paid'); // Adiciona a classe para sessões não pagas
+                }
+                sessionDiv.innerHTML = `Nome: ${session.name}, Data: ${session.date}, Horário: ${session.time}, Valor: ${session.value}, Pago: ${session.paid ? 'Sim' : 'Não'}`;
+                sessionsList.appendChild(sessionDiv);
+            });
+        }
+
+
+        function applyFilters() {
+            const filterName = document.getElementById('filterName').value.toLowerCase();
+            const filterMonth = document.getElementById('filterMonth').value;
+            const filterPaymentStatus = document.getElementById('filterPaymentStatus').value;
+            const appointments = JSON.parse(localStorage.getItem('appointments')) || {};
+            let filteredSessions = [];
+
+            for (const date in appointments) {
+                appointments[date].forEach(appointment => {
+                    const matchesName = appointment.name.toLowerCase().includes(filterName);
+                    const matchesMonth = !filterMonth || date.startsWith(filterMonth);
+                    const matchesPaymentStatus = filterPaymentStatus === 'all' ||
+                        (filterPaymentStatus === 'paid' && appointment.paid) ||
+                        (filterPaymentStatus === 'notPaid' && !appointment.paid);
+                    if (matchesName && matchesMonth && matchesPaymentStatus) {
+                        filteredSessions.push({
+                            date,
+                            name: appointment.name,
+                            time: appointment.time,
+                            value: appointment.value,
+                            paid: appointment.paid
+                        });
+                    }
+                });
+            }
+
+            displaySessions(filteredSessions);
+            calculateTotals(filteredSessions, filterPaymentStatus); // Calcula totais com base no filtro
+        }
+
+        function calculateTotals(sessions, filterPaymentStatus) {
+            const totalsDiv = document.getElementById('totals');
+            totalsDiv.innerHTML = '';
+
+            let totalPaid = 0;
+            let totalNotPaid = 0;
+
+            sessions.forEach(session => {
+                if (session.paid && (filterPaymentStatus === 'all' || filterPaymentStatus === 'paid')) {
+                    totalPaid += parseFloat(session.value);
+                } else if (!session.paid && (filterPaymentStatus === 'all' || filterPaymentStatus === 'notPaid')) {
+                    totalNotPaid += parseFloat(session.value);
+                }
+            });
+
+            if (filterPaymentStatus === 'all' || filterPaymentStatus === 'paid') {
+                const totalPaidDiv = document.createElement('div');
+                totalPaidDiv.textContent = `Total Pago: ${totalPaid.toFixed(2)}`;
+                totalsDiv.appendChild(totalPaidDiv);
+            }
+
+            if (filterPaymentStatus === 'all' || filterPaymentStatus === 'notPaid') {
+                const totalNotPaidDiv = document.createElement('div');
+                totalNotPaidDiv.textContent = `Total Não Pago: ${totalNotPaid.toFixed(2)}`;
+                totalsDiv.appendChild(totalNotPaidDiv);
+            }
+
+            const totalDiv = document.createElement('div');
+            totalDiv.textContent = `Total Geral: ${(totalPaid + totalNotPaid).toFixed(2)}`;
+            totalsDiv.appendChild(totalDiv);
+        }
+
+
+    </script>
+</body>
+
+</html>

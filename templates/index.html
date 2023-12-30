@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento Clínica Psicanalítica Pezzott</title>
+    <link rel="icon"
+        href="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/img/Logo.ico"
+        type="image/x-icon">
+    <style>
+        /* Estilos Gerais */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #b2d6c4, #76b9a5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header-fixed {
+            background-color: rgba(87, 165, 141, 0.85);
+            color: white;
+            width: 100%;
+            height: 100px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 0 20px;
+        }
+
+        .header-logo {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            position: absolute;
+            left: 20px;
+            top: 10px;
+        }
+
+        .header-title {
+            font-size: 1.5em;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0;
+            top: 20px;
+        }
+
+        /* Barra de navegação e botões de backup */
+        .header-nav {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .header-nav a,
+        .header-nav button {
+            color: white;
+            background-color: transparent;
+            padding: 5px 10px;
+            margin-left: 10px;
+            /* Espaço entre os elementos */
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .header-nav .backup-buttons {
+            display: flex;
+            flex-direction: column;
+            /* Organiza os botões em coluna */
+            align-items: flex-start;
+            /* Alinha os botões à esquerda */
+            margin-top: 10px;
+            /* Espaço entre o link e os botões */
+        }
+
+
+        .header-nav button {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .header-nav button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .header-nav #fileInput {
+            display: none;
+        }
+
+        .header-title {
+            font-size: 1.5em;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0;
+            top: 20px;
+        }
+
+        /* Conteúdo Principal */
+        .content {
+            padding-top: 100px;
+        }
+
+        .calendar-container {
+            max-width: 90%;
+            margin: 120px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navegação do Calendário */
+        .month-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: rgb(87, 165, 141);
+            color: white;
+        }
+
+        .month-navigation button {
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .month-navigation button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Dias do Calendário */
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: rgb(87, 165, 141);
+            color: white;
+        }
+
+        .day-header {
+            font-weight: bold;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border: 1px solid #ddd;
+            grid-gap: 10px;
+        }
+
+        .day {
+            padding: 10px;
+            border: 2px solid rgb(87, 165, 141);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 4px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .day:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modais */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-color: rgb(87, 165, 141);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Formulários */
+        .modal form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal form label {
+            margin-top: 10px;
+        }
+
+        .modal form input,
+        .modal form textarea,
+        .modal form button {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal form button {
+            background-color: rgb(87, 165, 141);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .modal form button:hover {
+            opacity: 0.8;
+        }
+
+        /* Adiciona estilos adicionais para inputs de agendamento */
+        .modal form input[type="text"],
+        .modal form input[type="time"],
+        .modal form input[type="number"],
+        .modal form textarea {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+
+        #appointmentForm {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #appointmentForm label {
+            margin-top: 10px;
+        }
+
+        #appointmentForm input,
+        #appointmentForm textarea,
+        #appointmentForm button {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        #appointmentForm button {
+            margin-top: 15px;
+            background-color: #4CAF50;
+            /* Verde */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #appointmentForm button:hover {
+            opacity: 0.8;
+        }
+
+        /* Adiciona estilos adicionais para inputs de agendamento */
+        #appointmentForm input[type="text"],
+        #appointmentForm input[type="time"],
+        #appointmentForm input[type="number"],
+        #appointmentForm textarea {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+
+        .day div {
+            background-color: #e7e7e7;
+            margin-top: 4px;
+            padding: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        /* Estilos para destacar o dia atual no calendário */
+        .day.today {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        /* Estilos para dias do calendário com agendamentos */
+        .day.with-appointment {
+            background-color: #fcf8e3;
+        }
+
+        /* Oculta dias vazios do início e final do calendário */
+        .day.empty {
+            visibility: hidden;
+        }
+
+        /* Estilos do pop-up de edição de agendamento */
+        #editAppointmentModal {
+            display: none;
+        }
+
+        /* Estilos para agendamentos pagos */
+        .appointment.paid {
+            background-color: #dff0d8;
+            /* Um verde claro para indicar pagamento realizado */
+            color: #3c763d;
+            /* Texto em verde escuro para contraste */
+            border-left: 5px solid #4CAF50;
+            /* Uma borda esquerda para destacar */
+            padding-left: 10px;
+            /* Ajuste no padding para compensar a borda */
+        }
+
+        /* Estilos para agendamentos não pagos */
+        .appointment:not(.paid) {
+            background-color: #f2dede;
+            /* Um vermelho claro para indicar pendência de pagamento */
+            color: #a94442;
+            /* Texto em vermelho escuro para contraste */
+            border-left: 5px solid #d9534f;
+            /* Uma borda esquerda para destacar */
+            padding-left: 10px;
+            /* Ajuste no padding para compensar a borda */
+        }
+
+        /* Estilos para o botão de marcar como pago no formulário de edição */
+        #edit-paid {
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* Estilo para o botão de excluir agendamento */
+        #deleteAppointmentButton {
+            background-color: #d9534f;
+            /* Vermelho para a ação de excluir */
+            color: white;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #deleteAppointmentButton:hover {
+            opacity: 0.8;
+        }
+
+        .backup-buttons {
+            margin-top: 20px;
+            text-align: center;
+            /* Centraliza os botões */
+        }
+
+        .backup-buttons button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            /* Espaço entre os botões */
+            background-color: rgb(87, 165, 141);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .backup-buttons button:hover {
+            background-color: rgba(87, 165, 141, 0.8);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-fixed">
+        <img src="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/img/Logo.jpg"
+            alt="Logo da Clínica" class="header-logo">
+        <h1 class="header-title">Agendamento Clínica Psicanalítica Pezzott</h1>
+        <nav class="header-nav">
+            <a
+                href="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/templates/historicos-de-sessões.html">Histórico
+                de Sessões</a>
+            <div class="backup-buttons">
+                <button id="downloadData">Download de Dados</button>
+                <button id="uploadData">Upload de Dados</button>
+                <input type="file" id="fileInput" style="display: none;" />
+            </div>
+        </nav>
+    </div>
+
+
+
+    <div class="content">
+        <div class="calendar-container">
+            <div class="month-navigation">
+                <button id="prevMonth">Anterior</button>
+                <span id="monthYear"></span>
+                <button id="nextMonth">Próximo</button>
+            </div>
+            <div class="calendar-days">
+                <div class="day-header">Domingo</div>
+                <div class="day-header">Segunda</div>
+                <div class="day-header">Terça</div>
+                <div class="day-header">Quarta</div>
+                <div class="day-header">Quinta</div>
+                <div class="day-header">Sexta</div>
+                <div class="day-header">Sabado</div>
+            </div>
+            <div class="days-grid" id="calendar"></div>
+        </div>
+    </div>
+    <!-- Pop-up de agendamento -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <form id="appointmentForm">
+                <label for="name">Nome:</label><br>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="time">Horário do agendamento:</label><br>
+                <input type="time" id="time" name="time" required><br>
+
+                <label for="notes">Notas:</label><br>
+                <textarea id="notes" name="notes"></textarea><br>
+
+                <label for="value">Valor da consulta:</label><br>
+                <input type="number" id="value" name="value" required><br>
+
+                <button type="submit">Agendar</button>
+                <button type="button" class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <!-- Pop-up de edição de agendamento -->
+    <div id="editAppointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <form id="editAppointmentForm">
+                <label for="edit-name">Nome:</label><br>
+                <input type="text" id="edit-name" name="name" required><br>
+
+                <label for="edit-time">Horário do agendamento:</label><br>
+                <input type="time" id="edit-time" name="time" required><br>
+
+                <label for="edit-notes">Notas:</label><br>
+                <textarea id="edit-notes" name="notes"></textarea><br>
+
+                <label for="edit-value">Valor da consulta:</label><br>
+                <input type="number" id="edit-value" name="value" required><br>
+                <label for="edit-paid">Pagamento realizado:</label>
+                <input type="checkbox" id="edit-paid" name="paid"><br>
+                <button type="button" id="updateAppointmentButton">Atualizar</button>
+                <button type="button" id="deleteAppointmentButton">Excluir Agendamento</button>
+                <button type="button" class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        let currentDate = new Date();
+
+        function clearCalendar() {
+            const calendar = document.getElementById("calendar");
+            calendar.innerHTML = "";
+        }
+
+        function setMonthYear() {
+            const monthYear = document.getElementById("monthYear");
+            monthYear.textContent = monthNames[currentDate.getMonth()] + " " + currentDate.getFullYear();
+        }
+
+        function renderCalendar() {
+            clearCalendar();
+            setMonthYear();
+
+            const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const lastDateOfMonth = lastDayOfMonth.getDate();
+
+            let calendarHtml = "";
+            for (let i = 0; i < firstDayOfMonth.getDay(); i++) {
+                calendarHtml += "<div class='day'></div>"; // Preenche os dias vazios da primeira semana
+            }
+            for (let i = 1; i <= lastDateOfMonth; i++) {
+                const date = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                calendarHtml += `<div class='day' data-date='${date}'><div class='appointments-container'></div>${i}</div>`;
+            }
+
+            document.getElementById("calendar").innerHTML = calendarHtml;
+            loadAppointments();
+        }
+
+        function navigateMonths(step) {
+            currentDate.setMonth(currentDate.getMonth() + step);
+            renderCalendar();
+        }
+
+        document.getElementById("prevMonth").addEventListener("click", () => navigateMonths(-1));
+        document.getElementById("nextMonth").addEventListener("click", () => navigateMonths(1));
+
+        function openModal(date) {
+            const modal = document.getElementById('appointmentModal');
+            modal.style.display = 'block';
+            modal.setAttribute('data-date', date);
+        }
+
+        function closeModal() {
+            document.getElementById('appointmentModal').style.display = 'none';
+            document.getElementById('editAppointmentModal').style.display = 'none';
+        }
+
+        document.querySelectorAll('.close-button').forEach(function (button) {
+            button.addEventListener('click', closeModal);
+        });
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        };
+
+        document.getElementById('calendar').addEventListener('click', function (e) {
+            if (e.target.classList.contains('day') || e.target.classList.contains('appointments-container')) {
+                let date = e.target.dataset.date || e.target.closest('.day').dataset.date;
+                openModal(date);
+            }
+        });
+
+        document.getElementById('appointmentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const date = this.closest('.modal').getAttribute('data-date');
+            const name = document.getElementById('name').value;
+            const time = document.getElementById('time').value;
+            const notes = document.getElementById('notes').value;
+            const value = document.getElementById('value').value;
+            const paid = false; // Inicialmente, o pagamento não foi realizado
+            const appointmentId = 'appointment-' + Date.now();
+            const appointment = { id: appointmentId, name, time, notes, value, paid };
+            saveAppointment(date, appointment);
+            renderCalendar();
+            this.reset();
+            closeModal();
+        });
+
+        function saveAppointment(date, appointment) {
+            let appointments = JSON.parse(localStorage.getItem('appointments'))
+            if (!appointments[date]) {
+                appointments[date] = [];
+            }
+            appointments[date].push(appointment);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+        }
+
+        function loadAppointments() {
+            let appointments = JSON.parse(localStorage.getItem('appointments')) || {};
+            for (const date in appointments) {
+                const dayElement = document.querySelector(`[data-date='${date}']`);
+                if (dayElement) {
+                    const appointmentsContainer = dayElement.querySelector('.appointments-container');
+                    appointments[date].forEach(appointment => {
+                        const appointmentDiv = document.createElement('div');
+                        appointmentDiv.classList.add('appointment');
+                        appointmentDiv.textContent = appointment.name + " - " + appointment.time;
+                        if (appointment.paid) {
+                            appointmentDiv.classList.add('paid');
+                        }
+                        appointmentDiv.dataset.appointmentId = appointment.id;
+                        appointmentDiv.addEventListener('click', function () {
+                            openEditModal(appointment, date);
+                        });
+                        appointmentsContainer.appendChild(appointmentDiv);
+                    });
+                }
+            }
+        }
+
+        function openEditModal(appointment, date) {
+            const editModal = document.getElementById('editAppointmentModal');
+            document.getElementById('edit-name').value = appointment.name;
+            document.getElementById('edit-time').value = appointment.time;
+            document.getElementById('edit-notes').value = appointment.notes || '';
+            document.getElementById('edit-value').value = appointment.value;
+            document.getElementById('edit-paid').checked = appointment.paid; // Checkbox para pagamento
+            editModal.setAttribute('data-appointment-id', appointment.id);
+            editModal.setAttribute('data-date', date);
+            editModal.style.display = 'block';
+        }
+
+        document.getElementById('updateAppointmentButton').addEventListener('click', function () {
+            const editModal = document.getElementById('editAppointmentModal');
+            const appointmentId = editModal.getAttribute('data-appointment-id');
+            const date = editModal.getAttribute('data-date');
+            updateAppointment(appointmentId, date);
+        });
+
+        function updateAppointment(appointmentId, date) {
+            const name = document.getElementById('edit-name').value;
+            const time = document.getElementById('edit-time').value;
+            const notes = document.getElementById('edit-notes').value;
+            const value = document.getElementById('edit-value').value;
+            const paid = document.getElementById('edit-paid').checked; // Atualiza o estado de pagamento
+            let appointments = JSON.parse(localStorage.getItem('appointments')) || {};
+            const appointmentIndex = appointments[date].findIndex(a => a.id === appointmentId);
+            if (appointmentIndex !== -1) {
+                appointments[date][appointmentIndex] = { id: appointmentId, name, time, notes, value, paid };
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                renderCalendar();
+                closeModal();
+            }
+        }
+
+        // Adicione um botão de excluir no formulário de edição
+        document.getElementById('editAppointmentForm').appendChild(document.createElement('button')).textContent = 'Excluir Agendamento';
+        document.getElementById('deleteAppointmentButton').type = 'button';
+        document.getElementById('deleteAppointmentButton').addEventListener('click', function () {
+            const editModal = document.getElementById('editAppointmentModal');
+            const appointmentId = editModal.getAttribute('data-appointment-id');
+            const date = editModal.getAttribute('data-date');
+            if (confirm('Tem certeza que deseja excluir este agendamento?')) {
+                deleteAppointment(appointmentId, date);
+            }
+        });
+
+        function deleteAppointment(appointmentId, date) {
+            let appointments = JSON.parse(localStorage.getItem('appointments')) || {};
+            const dayAppointments = appointments[date] || [];
+            const newDayAppointments = dayAppointments.filter(appointment => appointment.id !== appointmentId);
+            if (newDayAppointments.length > 0) {
+                appointments[date] = newDayAppointments;
+            } else {
+                delete appointments[date];
+            }
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            renderCalendar();
+            closeModal();
+        }
+
+        // Event listener para o botão de excluir agendamento
+        document.getElementById('deleteAppointmentButton').addEventListener('click', function () {
+            const editModal = document.getElementById('editAppointmentModal');
+            const appointmentId = editModal.getAttribute('data-appointment-id');
+            const date = editModal.getAttribute('data-date');
+            if (confirm('Tem certeza que deseja excluir este agendamento?')) {
+                deleteAppointment(appointmentId, date);
+            }
+        });
+
+        // Função para excluir um agendamento
+        function deleteAppointment(appointmentId, date) {
+            let appointments = JSON.parse(localStorage.getItem('appointments')) || {};
+            const dayAppointments = appointments[date] || [];
+            const newDayAppointments = dayAppointments.filter(appointment => appointment.id !== appointmentId);
+            if (newDayAppointments.length > 0) {
+                appointments[date] = newDayAppointments;
+            } else {
+                delete appointments[date];
+            }
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            renderCalendar();
+            closeModal();
+        }
+
+        // Inicializa o calendário com a data atual
+        renderCalendar();
+        document.getElementById('downloadData').addEventListener('click', function () {
+            const data = localStorage.getItem('appointments');
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'agendamentos.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+        document.getElementById('uploadData').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const appointments = e.target.result;
+                    localStorage.setItem('appointments', appointments);
+                    loadAppointments(); // Atualiza os agendamentos na página
+                };
+                reader.readAsText(file);
+            }
+        });
+
+    </script>
+</body>
+
+</html>

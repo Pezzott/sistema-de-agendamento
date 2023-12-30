@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pacientes - Clínica Psicanalítica Pezzott</title>
+    <link rel="icon"
+        href="C:/Users/AFERR136/OneDrive - azureford/PSICOLOGIA/CONTROLE DE SESSÕES E COBRANÇA/AGENDA-TERAPIA/img/Logo.ico"
+        type="image/x-icon">
+    <style>
+        /* Estilos Gerais */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #b2d6c4, #76b9a5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Cabeçalho da Página */
+        .header {
+            background-color: rgba(87, 165, 141, 0.85);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Lista de Pacientes */
+        .patient-list {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Botão de Adicionar Paciente */
+        #addPatient {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        #addPatient:hover {
+            background-color: #45a049;
+        }
+
+        /* Modal para Adicionar/Editar Pacientes */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            border-radius: 8px;
+        }
+
+        .close-button {
+            float: right;
+            color: #aaa;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: #000;
+        }
+
+        /* Formulário de Pacientes */
+        #patientForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #patientForm label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        #patientForm input[type="text"],
+        #patientForm input[type="time"],
+        #patientForm input[type="tel"],
+        #patientForm input[type="checkbox"],
+        #patientForm button {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            width: 90%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #patientForm button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        #patientForm button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos para Pacientes Desativados */
+        .patient-inactive {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <!-- Cabeçalho da página -->
+        <h1>Lista de Pacientes</h1>
+    </div>
+
+    <div class="patient-list">
+        <!-- Lista de pacientes será gerada aqui -->
+    </div>
+
+    <button id="addPatient">Adicionar Paciente</button>
+
+    <!-- Modal para adicionar/editar pacientes -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <form id="patientForm">
+                <label for="name">Nome Completo:</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="preferredDay">Dia de Preferência:</label>
+                <input type="text" id="preferredDay" name="preferredDay" required><br>
+
+                <label for="preferredTime">Horário de Preferência:</label>
+                <input type="time" id="preferredTime" name="preferredTime" required><br>
+
+                <label for="phone">Telefone:</label>
+                <input type="tel" id="phone" name="phone" required><br>
+
+                <label for="active">Ativo:</label>
+                <input type="checkbox" id="active" name="active" checked><br>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Estrutura de dados para pacientes
+        let patients = JSON.parse(localStorage.getItem('patients')) || [];
+
+        // Função para abrir o modal de cadastro de pacientes
+        function openPatientModal() {
+            // Limpa o formulário
+            document.getElementById('patientForm').reset();
+            // Define o atributo 'data-id' como null para um novo cadastro
+            document.getElementById('patientModal').setAttribute('data-id', null);
+            // Exibe o modal
+            document.getElementById('patientModal').style.display = 'block';
+        }
+
+        // Função para fechar o modal de cadastro de pacientes
+        function closePatientModal() {
+            document.getElementById('patientModal').style.display = 'none';
+        }
+
+        // Função para salvar um novo cadastro
+        function savePatient(e) {
+            e.preventDefault();
+            const patientModal = document.getElementById('patientModal');
+            const patientId = patientModal.getAttribute('data-id');
+            const name = document.getElementById('name').value;
+            const preferredDay = document.getElementById('preferredDay').value;
+            const preferredTime = document.getElementById('preferredTime').value;
+            const phone = document.getElementById('phone').value;
+            const active = document.getElementById('active').checked;
+
+            // Cria um novo objeto de paciente ou atualiza um existente
+            const newPatient = { id: patientId || Date.now(), name, preferredDay, preferredTime, phone, active };
+
+            if (patientId) {
+                // Atualiza um paciente existente
+                const index = patients.findIndex(p => p.id === patientId);
+                patients[index] = newPatient;
+            } else {
+                // Adiciona um novo paciente
+                patients.push(newPatient);
+            }
+
+            // Salva a lista atualizada no localStorage
+            localStorage.setItem('patients', JSON.stringify(patients));
+
+            // Atualiza a lista na interface
+            generatePatientList();
+
+            // Fecha o modal
+            closePatientModal();
+        }
+
+        // Função para gerar a lista de pacientes na interface
+        function generatePatientList() {
+            const patientListDiv = document.getElementById('patient-list');
+            patientListDiv.innerHTML = ''; // Limpa a lista atual
+
+            patients.forEach(patient => {
+                const patientDiv = document.createElement('div');
+                patientDiv.innerHTML = `
+                    Nome: ${patient.name}<br>
+                    Dia de Preferência: ${patient.preferredDay}<br>
+                    Horário de Preferência: ${patient.preferredTime}<br>
+                    Telefone: ${patient.phone}<br>
+                    Ativo: ${patient.active ? 'Sim' : 'Não'}
+                `;
+                patientListDiv.appendChild(patientDiv);
+            });
+        }
+
+        // Event listener para o botão de adicionar paciente
+        document.getElementById('addPatient').addEventListener('click', openPatientModal);
+
+        // Event listener para o botão de fechar o modal
+        document.querySelectorAll('.close-button').forEach(button => {
+            button.addEventListener('click', closePatientModal);
+        });
+
+        // Event listener para o formulário de cadastro de pacientes
+        document.getElementById('patientForm').addEventListener('submit', savePatient);
+
+        // Gera a lista de pacientes quando a página é carregada
+        document.addEventListener('DOMContentLoaded', generatePatientList);
+
+    </script>
+</body>
+
+</html>
