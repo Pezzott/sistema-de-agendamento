@@ -354,8 +354,16 @@
             border-left: 5px solid #d9534f;
             /* Uma borda esquerda para destacar */
             padding-left: 10px;
-            /* Ajuste no padding para compensar a borda */
         }
+
+        /* Estilos para agendamentos realizados */
+        .appointment.completed {
+            background-color: #f0e4a1;
+            color: #5d5d51;
+            border-left: 5px solid #FFD700;
+            padding-left: 10px;
+        }
+
 
         /* Estilos para o botão de marcar como pago no formulário de edição */
         #edit-paid {
@@ -375,6 +383,11 @@
 
         #deleteAppointmentButton:hover {
             opacity: 0.8;
+        }
+
+        .completed {
+            background-color: #ffff99;
+            /* amarelo claro */
         }
 
         .backup-buttons {
@@ -419,8 +432,7 @@
         </nav>
     </div>
 
-
-
+    <!--Calendario pra agendamento-->
     <div class="content">
         <div class="calendar-container">
             <div class="month-navigation">
@@ -469,23 +481,24 @@
             <form id="editAppointmentForm">
                 <label for="edit-name">Nome:</label><br>
                 <input type="text" id="edit-name" name="name" required><br>
-
                 <label for="edit-time">Horário do agendamento:</label><br>
                 <input type="time" id="edit-time" name="time" required><br>
-
                 <label for="edit-notes">Notas:</label><br>
                 <textarea id="edit-notes" name="notes"></textarea><br>
-
                 <label for="edit-value">Valor da consulta:</label><br>
                 <input type="number" id="edit-value" name="value" required><br>
                 <label for="edit-paid">Pagamento realizado:</label>
                 <input type="checkbox" id="edit-paid" name="paid"><br>
+                <label for="edit-completed">Consulta realizada:</label>
+                <input type="checkbox" id="edit-completed" name="completed"><br>
+
                 <button type="button" id="updateAppointmentButton">Atualizar</button>
                 <button type="button" id="deleteAppointmentButton">Excluir Agendamento</button>
                 <button type="button" class="close-button">Cancelar</button>
             </form>
         </div>
     </div>
+
     <script>
         const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -565,9 +578,10 @@
             const time = document.getElementById('time').value;
             const notes = document.getElementById('notes').value;
             const value = document.getElementById('value').value;
-            const paid = false; // Inicialmente, o pagamento não foi realizado
+            const paid = false;
+            const completed = false;
             const appointmentId = 'appointment-' + Date.now();
-            const appointment = { id: appointmentId, name, time, notes, value, paid };
+            const appointment = { id: appointmentId, name, time, notes, value, paid, completed };
             saveAppointment(date, appointment);
             renderCalendar();
             this.reset();
@@ -593,9 +607,17 @@
                         const appointmentDiv = document.createElement('div');
                         appointmentDiv.classList.add('appointment');
                         appointmentDiv.textContent = appointment.name + " - " + appointment.time;
+
+                        // Adiciona classe 'paid' se o pagamento foi realizado
                         if (appointment.paid) {
                             appointmentDiv.classList.add('paid');
                         }
+
+                        // Adiciona estilo diretamente se a consulta foi realizada
+                        if (appointment.completed) {
+                            appointmentDiv.classList.add('completed'); // Amarelo claro
+                        }
+
                         appointmentDiv.dataset.appointmentId = appointment.id;
                         appointmentDiv.addEventListener('click', function () {
                             openEditModal(appointment, date);
@@ -606,17 +628,21 @@
             }
         }
 
+
+
         function openEditModal(appointment, date) {
             const editModal = document.getElementById('editAppointmentModal');
             document.getElementById('edit-name').value = appointment.name;
             document.getElementById('edit-time').value = appointment.time;
             document.getElementById('edit-notes').value = appointment.notes || '';
             document.getElementById('edit-value').value = appointment.value;
-            document.getElementById('edit-paid').checked = appointment.paid; // Checkbox para pagamento
+            document.getElementById('edit-paid').checked = appointment.paid;
+            document.getElementById('edit-completed').checked = appointment.completed || false;
             editModal.setAttribute('data-appointment-id', appointment.id);
             editModal.setAttribute('data-date', date);
             editModal.style.display = 'block';
         }
+
 
         document.getElementById('updateAppointmentButton').addEventListener('click', function () {
             const editModal = document.getElementById('editAppointmentModal');
@@ -630,16 +656,19 @@
             const time = document.getElementById('edit-time').value;
             const notes = document.getElementById('edit-notes').value;
             const value = document.getElementById('edit-value').value;
-            const paid = document.getElementById('edit-paid').checked; // Atualiza o estado de pagamento
+            const paid = document.getElementById('edit-paid').checked;
+            const completed = document.getElementById('edit-completed').checked;
+
             let appointments = JSON.parse(localStorage.getItem('appointments')) || {};
             const appointmentIndex = appointments[date].findIndex(a => a.id === appointmentId);
             if (appointmentIndex !== -1) {
-                appointments[date][appointmentIndex] = { id: appointmentId, name, time, notes, value, paid };
+                appointments[date][appointmentIndex] = { id: appointmentId, name, time, notes, value, paid, completed };
                 localStorage.setItem('appointments', JSON.stringify(appointments));
                 renderCalendar();
                 closeModal();
             }
         }
+
 
         // Adicione um botão de excluir no formulário de edição
         document.getElementById('editAppointmentForm').appendChild(document.createElement('button')).textContent = 'Excluir Agendamento';
